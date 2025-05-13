@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOG IN</title>
+    <link rel="icon" type="image/png" href="images_/logo.png">
+    <style> 
+        @import url('fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            position: relative;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .top-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-bottom: 2px solid #8257e6;
+        }
+        
+        .site-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .site-logo img {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .site-logo h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: #8257e6;
+            font-size: 18px;
+        }
+        
+        header h1 {
+            display: none; 
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .flexbox {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(130, 87, 230, 0.3);
+            border: 1px solid rgba(130, 87, 230, 0.3);
+        }
+
+        .flexbox h2 {
+            font-family: 'Press Start 2P', cursive;
+            color: #8257e6;
+            margin-bottom: 30px;
+        }
+
+        .flexbox2 {
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input {
+            width: 100%;
+            height: 50px;
+            font-size: medium;
+            padding: 5px 15px;
+            border-radius: 15px;
+            border: 1px solid #8257e6;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            box-sizing: border-box;
+        }
+
+        input::placeholder {
+            color: #b8b8b8;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #a278f8;
+            box-shadow: 0 0 10px rgba(130, 87, 230, 0.5);
+        }
+
+        .Sign button {
+            background-color: #8257e6;
+            color: white;
+            font-size: 16px;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .Sign button:hover {
+            background-color: #6a38d1;
+        }
+
+        p {
+            margin-top: 20px;
+            color: #b8b8b8;
+            font-size: 14px;
+        }
+
+        a {
+            color: #8257e6;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #a278f8;
+            text-decoration: underline;
+        }
+
+        .bottom-bar {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 2px solid #8257e6;
+
+        }
+        .bottom-bar img {
+            width: 200px;
+            height: 200px;
+
+        }
+        
+        .bottom-bar p {
+            color: #b8b8b8;
+        }
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bodyElement = document.querySelector('body');
+            const numberOfStars = 200;
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.opacity = Math.random() * 0.8 + 0.2;
+                bodyElement.appendChild(star);
+            }
+        });
+    </script>
+
+    <div class="top-menu">
+        <div class="site-logo">
+            <img src="images_/logo.png" alt="Game Hub Logo">
+            <h1>Multiplayer Game Hub</h1>
+        </div>
+    </div>
+
+    <header>
+        <h1>Multiplayer Game Hub</h1>
+    </header>
+
+    <main>
+        <div class="flexbox">
+            <h2>Welcome Back :) </h2>
+            <div class="flexbox2">
+                <input type="text" placeholder="Username" />
+            </div>
+            <div class="flexbox2">
+                <input type="password" placeholder="Password" />
+            </div>
+            <div class="Sign">
+                <button type="button">Log In</button>
+            </div>
+            <p>You're new here? <a href="#">Sign up now</a></p>
+            <p>This page is protected by Google reCAPTCHA to ensure you're not a bot. <a href="#">Learn more.</a></p>
+        </div>
+    </main>
+    <div class="bottom-bar">
+        <p>© 2025 Multiplayer Game Hub. All rights reserved.</p>
+        <img src="images_/logo.png" alt="logo" style=>
+    </div>
+
+
+
+</body>
+</html>

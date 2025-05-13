@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplayer Game Hub</title>
+    <link rel="icon" type="image/png" href="images_/logo.png">
+    <style>
+        @import url('fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            position: relative;
+            box-sizing: border-box;
+        }
+        
+      
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            z-index: -1;
+        }
+        
+       
+        .top-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-bottom: 2px solid #8257e6;
+        }
+        
+        .site-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .site-logo img {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .site-logo h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: #8257e6;
+            font-size: 18px;
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .menu-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            font-size: 16px;
+        }
+        
+        .menu-links a:hover {
+            color: #8257e6;
+        }
+        
+        .user-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .login-button, .signup-button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .login-button {
+            background-color: transparent;
+            color: #8257e6;
+            border: 2px solid #8257e6;
+        }
+        
+        .login-button:hover {
+           
+        box-shadow: 0 0 15px #784caf, 0 0 25px #7305ea, 0 0 35px #6f4caf;
+        transform:scale(1);
+        }
+        
+        .signup-button {
+            background-color: #8257e6;
+            color: white;
+        }
+        
+        .signup-button:hover {
+            box-shadow: 0 0 15px #784caf, 0 0 25px #7305ea, 0 0 35px #6f4caf;
+        transform:scale(1);
+        }
+        
+
+
+
+
+
+
+
+       
+        .main-banner {
+            padding: 60px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .main-banner h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 70px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #8257e6, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: text-shine 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes text-shine {
+            from {
+                text-shadow: 0 0 10px rgba(130, 87, 230, 0.5), 0 0 20px rgba(130, 87, 230, 0.3);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(130, 87, 230, 0.7), 0 0 30px rgba(130, 87, 230, 0.5);
+            }
+        }
+        
+        .main-banner p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #b8b8b8;
+        }
+        
+      
+        .games-section {
+            padding: 30px;
+        }
+        
+        .section-header {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #8257e6;
+            border-left: 4px solid #8257e6;
+            padding-left: 15px;
+        }
+        
+        .games-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .game-box {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .game-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(130, 87, 230, 0.3);
+        }
+        
+        .game-box img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .game-details {
+            padding: 20px;
+        }
+        
+        .game-details h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: white;
+        }
+        
+        .game-details p {
+            color: #b8b8b8;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .play-button {
+            display: inline-block;
+            padding: 8px 30px;
+            background-color: #8257e6;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .play-button:hover {
+            background-color: #6a38d1;
+        }
+        
+        .game-types {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 12px;
+        }
+        
+        .game-type {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+            color: #b8b8b8;
+        }
+        
+        
+        
+        .howto-section {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .step-box {
+            flex: 1;
+            max-width: 250px;
+        }
+        
+        .step-number {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 32px;
+        }
+        
+        .step-box h3 {
+            margin-bottom: 8px;
+        }
+        
+        .step-box p {
+            color: #b8b8b8;
+        }
+        
+       
+        .bottom-bar {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 2px solid #8257e6;
+
+        }
+        .bottom-bar img {
+            width: 200px;
+            height: 200px;
+
+        }
+        
+        .bottom-bar p {
+            color: #b8b8b8;
+        }
+    </style></head>
+
+
+
+
+
+
+
+
+
+
+<body>
+    <script>
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            const bodyElement = document.querySelector('body');
+            const numberOfStars = 200;
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.opacity = Math.random() * 0.8 + 0.2;
+                bodyElement.appendChild(star);
+            }
+        });
+    </script>
+
+
+
+
+
+
+    <div class="top-menu">
+        <div class="site-logo">
+            <img src="images_/logo.png" alt="Game Hub Logo">
+            <h1>Multiplayer Game Hub</h1>
+        </div>
+        <div class="menu-links">
+            <a href="#">Home</a>
+            <a href="#">Games</a>
+            <a href="#">Ranking </a>
+        </div>
+        <div class="user-buttons">
+            <button class="login-button" onclick="window.location.href='login.html'"  >Login</button>
+            <button class="signup-button" onclick="window.location.href='signup.html'" >Register</button>
+        </div>
+    </div>
+
+    <div class="main-banner">
+        <h2>Connect. Play. Win.</h2>
+        <p>Challenge your friends or play against new opponents in our classic games collection.</p>
+    </div>
+
+    <div class="games-section">
+        <h2 class="section-header">Our Games</h2>
+        <div class="games-list">
+            <div class="game-box">
+                <img src="images_/chess.jpg" alt="Chess Game">
+                <div class="game-details">
+                    <h3>Chess</h3>
+                    <p>Play the classic strategy game. Challenge your mind in this classic battle of skill.</p>
+                    <div class="game-types">
+                        <span class="game-type">single Player</span>
+                        <span class="game-type">local multiplayers</span>
+                        <span class="game-type">Online multiplayers</span>
+                    </div>
+                    <div style="margin-top: 15px; text-align: center;">
+                        <a href="#" class="play-button">Play Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-box">
+                <img src="images_/3pions.jpg" alt="3 Pions Game">
+                <div class="game-details">
+                    <h3>3 Pions</h3>
+                    <p>A strategy game where you align three pieces while blocking your opponent from doing the same.</p>
+                    <div class="game-types">
+                        <span class="game-type">single Player</span>
+                        <span class="game-type">local multiplayers</span>
+                        <span class="game-type">Online multiplayers</span>
+                    </div>
+                    <div style="margin-top: 15px; text-align: center;">
+                        <a href="#" class="play-button">Play Now</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-box">
+                <img src="images_/tic-tac-toe.jpg" alt="Tic-Tac-Toe Game">
+                <div class="game-details">
+                    <h3>Tic-Tac-Toe</h3>
+                    <p>The simple classic game of X's and O's. Easy to learn but fun to master.</p>
+                    <div class="game-types">
+                       <span class="game-type">single Player</span>
+                        <span class="game-type">local multiplayers</span>
+                        <span class="game-type">Online multiplayers</span>
+                    </div>
+                    <div style="margin-top: 15px; text-align: center;">
+                        <a href="#" class="play-button">Play Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="games-section">
+        <h2 class="section-header">How to Play</h2>
+        <div class="howto-section">
+            <div class="step-box">
+                <div class="step-number">1</div>
+                <h3>Pick a Game</h3>
+                <p>Choose one of our games that you want to play</p>
+            </div>
+            
+            <div class="step-box">
+                <div class="step-number">2</div>
+                <h3>Choose Mode</h3>
+                <p>Play against computer, with a friend, or online</p>
+            </div>
+            
+            <div class="step-box">
+                <div class="step-number">3</div>
+                <h3>Have Fun!</h3>
+                <p>Enjoy the game and check your stats in your profile</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-bar">
+        <p>© 2025 Multiplayer Game Hub. All rights reserved.</p>
+        <img src="images_/logo.png" alt="logo" style=>
+
+
+    </div>
+</body>
+</html>
