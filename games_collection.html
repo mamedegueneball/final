@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games Collection - Multiplayer Game Hub</title>
+    <link rel="icon" type="image/png" href="images_/logo.png">
+    <style>
+        @import url('fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            position: relative;
+            box-sizing: border-box;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            z-index: -1;
+        }
+        
+        .top-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-bottom: 2px solid #8257e6;
+        }
+        
+        .site-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .site-logo img {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .site-logo h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: #8257e6;
+            font-size: 18px;
+        }
+        
+        .menu-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .menu-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            font-size: 16px;
+        }
+        
+        .menu-links a:hover {
+            color: #8257e6;
+        }
+        
+        .menu-links a.active {
+            color: #8257e6;
+            border-bottom: 2px solid #8257e6;
+        }
+        
+        .user-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .login-button, .signup-button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .login-button {
+            background-color: transparent;
+            color: #8257e6;
+            border: 2px solid #8257e6;
+        }
+        
+        .login-button:hover {
+            box-shadow: 0 0 15px #784caf, 0 0 25px #7305ea, 0 0 35px #6f4caf;
+            transform: scale(1);
+        }
+        
+        .signup-button {
+            background-color: #8257e6;
+            color: white;
+        }
+        
+        .signup-button:hover {
+            box-shadow: 0 0 15px #784caf, 0 0 25px #7305ea, 0 0 35px #6f4caf;
+            transform: scale(1);
+        }
+        
+        .page-header {
+            padding: 40px 30px;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images_/games-banner.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .page-header h2 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: #8257e6;
+            text-shadow: 0 0 10px rgba(130, 87, 230, 0.5);
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #b8b8b8;
+        }
+        
+   
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 30px;
+        }
+        
+        .game-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(130, 87, 230, 0.3);
+        }
+        
+        .game-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .game-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .game-card:hover .game-image img {
+            transform: scale(1.1);
+        }
+        
+        .game-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.7));
+            display: flex;
+            align-items: flex-end;
+            padding: 15px;
+        }
+        
+        .game-difficulty {
+            background-color: rgba(130, 87, 230, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .game-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .game-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        .game-description {
+            color: #b8b8b8;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        
+        .game-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .game-tag {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+            color: #b8b8b8;
+            font-size: 12px;
+        }
+        
+        .game-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .play-button {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: #8257e6;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .play-button:hover {
+            background-color: #6a38d1;
+            box-shadow: 0 0 15px rgba(130, 87, 230, 0.5);
+        }
+        
+    
+       
+        
+        
+        .stats-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.3);
+            margin: 30px;
+            border-radius: 12px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            margin: 15px;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #8257e6;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #b8b8b8;
+        }
+        
+        .bottom-bar {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 2px solid #8257e6;
+        }
+        
+        .bottom-bar img {
+            width: 150px;
+            height: 150px;
+        }
+        
+        .bottom-bar p {
+            color: #b8b8b8;
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .game-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .play-button, .details-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bodyElement = document.querySelector('body');
+            const numberOfStars = 200;
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.opacity = Math.random() * 0.8 + 0.2;
+                bodyElement.appendChild(star);
+            }
+            
+            // Simple filter functionality
+            const filterButtons = document.querySelectorAll('.filter-button');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+
+    <div class="top-menu">
+        <div class="site-logo">
+            <img src="images_/logo.png" alt="Game Hub Logo">
+            <h1>Multiplayer Game Hub</h1>
+        </div>
+        <div class="menu-links">
+            <a href="home_page.html">Home</a>
+            <a href="games.html" class="active">Games</a>
+            <a href="#">Ranking</a>
+        </div>
+        <div class="user-buttons">
+            <button class="login-button" onclick="window.location.href='login.html'">Login</button>
+            <button class="signup-button" onclick="window.location.href='signup.html'">Register</button>
+        </div>
+    </div>
+
+    <div class="page-header">
+        <h2>Game Collection</h2>
+        <p>Explore our selection of classic and strategic games. Play solo, with friends locally, or challenge players online!</p>
+    </div>
+    
+    
+
+    <div class="games-grid">
+        <!-- Chess Game Card -->
+        <div class="game-card">
+            <div class="game-image">
+                <img src="images_/chess.jpg" alt="Chess Game">
+                <div class="game-overlay">
+                    <span class="game-difficulty">Intermediate</span>
+                </div>
+            </div>
+            <div class="game-content">
+                <h3 class="game-title">Chess</h3>
+                <p class="game-description">The classic strategy game of kings and queens. Plan your moves, protect your king, and outsmart your opponent in this timeless battle of intellect.</p>
+                <div class="game-tags">
+                    <span class="game-tag">Strategy</span>
+                    <span class="game-tag">Classic</span>
+                    <span class="game-tag">2 Players</span>
+                </div>
+                <div class="game-actions">
+                   
+                    <a href="chess.html" class="play-button">Play Now</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 3 Pions Game Card -->
+        <div class="game-card">
+            <div class="game-image">
+                <img src="images_/3pions.jpg" alt="3 Pions Game">
+                <div class="game-overlay">
+                    <span class="game-difficulty">Beginner</span>
+                </div>
+            </div>
+            <div class="game-content">
+                <h3 class="game-title">3 Pions</h3>
+                <p class="game-description">A strategic alignment game where you must position your three pieces in a row while preventing your opponent from doing the same. Simple rules but deep strategy!</p>
+                <div class="game-tags">
+                    <span class="game-tag">Strategy</span>
+                    <span class="game-tag">Alignment</span>
+                    <span class="game-tag">2 Players</span>
+                </div>
+                <div class="game-actions">
+                    
+                    <a href="3pions.html" class="play-button">Play Now</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tic-Tac-Toe Game Card -->
+        <div class="game-card">
+            <div class="game-image">
+                <img src="images_/tic-tac-toe.jpg" alt="Tic-Tac-Toe Game">
+                <div class="game-overlay">
+                    <span class="game-difficulty">Beginner</span>
+                </div>
+            </div>
+            <div class="game-content">
+                <h3 class="game-title">Tic-Tac-Toe</h3>
+                <p class="game-description">The timeless game of X's and O's. Easy to learn but surprisingly strategic. Be the first to align three of your marks in a row, column, or diagonal.</p>
+                <div class="game-tags">
+                    <span class="game-tag">Puzzle</span>
+                    <span class="game-tag">Classic</span>
+                    <span class="game-tag">2 Players</span>
+                </div>
+                <div class="game-actions">
+                    <a href="tictactoe.html" class="play-button">Play Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+  
+    
+    <div class="stats-section">
+        <div class="stat-item">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Classic Games</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Game Modes</div>
+        </div>
+    
+        <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Availability</div>
+        </div>
+    </div>
+
+    <div class="bottom-bar">
+        <img src="images_/logo.png" alt="logo">
+        <p>© 2025 Multiplayer Game Hub. All rights reserved.</p>
+    </div>
+</body>
+</html>
